@@ -35,6 +35,6 @@ US
 end views
 
 begin simOptions
-n = 100
-t = 5
+n = 1000
+t = 30
 end simOptions
