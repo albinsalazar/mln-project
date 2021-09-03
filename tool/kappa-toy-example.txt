@@ -1,0 +1,61 @@
+/* Signatures */
+%agent: V1(state{US, AS, AI}, l1v2, l1v3, l2v2, l2v3)
+%agent: V2(state{US, AS, AI}, l1v1, l2v1, l2v3)
+%agent: V3(state{US, AS, AI}, l1v1, l2v1, l2v2)
+
+/* Rules */
+'AS to US'
+V1(state{AS}) -> V1(state{US}) @ 'u_rate'
+V2(state{AS}) -> V2(state{US}) @ 'u_rate'
+V3(state{AS}) -> V3(state{US}) @ 'u_rate'
+
+'AI to AS'
+V1(state{AI}) -> V1(state{AS}) @ 'recovery_rate'
+V2(state{AI}) -> V2(state{AS}) @ 'recovery_rate'
+V3(state{AI}) -> V3(state{AS}) @ 'recovery_rate'
+
+'1: AS-AI to AI-AI'
+// V1 - V2
+V1(state{AS}, l1v2[112]), V2(state{AI}, l1v1[112]) -> V1(state{AI}, l1v2[112]), V2(state{AI}, l1v1[112]) @ 'infection_rate_a'
+// V1 - V3
+V1(state{AS}, l1v3[113]), V3(state{AI}, l1v1[113]) -> V1(state{AI}, l1v3[113]), V3(state{AI}, l1v1[113]) @ 'infection_rate_a'
+
+'1: US-AI to AI-AI'
+// V1 - V2
+V1(state{US}, l1v2[112]), V2(state{AI}, l1v1[112]) -> V1(state{AI}, l1v2[112]), V2(state{AI}, l1v1[112]) @ 'infection_rate_u'
+// V1 - V3
+V1(state{US}, l1v3[113]), V3(state{AI}, l1v1[113]) -> V1(state{AI}, l1v3[113]), V3(state{AI}, l1v1[113]) @ 'infection_rate_u'
+
+'2: US-AI to AS-AI'
+// V1 - V2
+V1(state{US}, l2v2[212]), V2(state{AI}, l2v1[212]) -> V1(state{AS}, l2v2[212]), V2(state{AI}, l2v1[212]) @ 'information_spread_rate'
+// V1 - V3
+V1(state{US}, l2v3[213]), V3(state{AI}, l2v1[213]) -> V1(state{AS}, l2v3[213]), V3(state{AI}, l2v1[213]) @ 'information_spread_rate'
+// V2 - V3
+V2(state{US}, l2v3[223]), V3(state{AI}, l2v2[223]) -> V2(state{AS}, l2v3[223]), V3(state{AI}, l2v2[223]) @ 'information_spread_rate'
+
+'2: US-AS to AS-AS'
+// V1 - V2
+V1(state{US}, l2v2[212]), V2(state{AS}, l2v1[212]) -> V1(state{AS}, l2v2[212]), V2(state{AS}, l2v1[212]) @ 'information_spread_rate'
+// V1 - V3
+V1(state{US}, l2v3[213]), V3(state{AS}, l2v1[213]) -> V1(state{AS}, l2v3[213]), V3(state{AS}, l2v1[213]) @ 'information_spread_rate'
+// V2 - V3
+V2(state{US}, l2v3[223]), V3(state{AS}, l2v2[223]) -> V2(state{AS}, l2v3[223]), V3(state{AS}, l2v2[223]) @ 'information_spread_rate'
+
+/* Variables */
+%var: 'u_rate' 1.0
+%var: 'recovery_rate' 0.5
+%var: 'infection_rate_a' 2.0
+%var: 'infection_rate_u' 4.0
+%var: 'information_spread_rate' 1.0
+
+/* Observables */
+%obs: 'count_as' |V1(state{AS})|
+%obs: 'count_ai' |V1(state{AI})|
+%obs: 'count_us' |V1(state{US})|
+
+/* Initial conditions */
+%init: 1000
+V1(state{US}, l1v2[112], l1v3[113], l2v2[212], l2v3[213]),
+V2(state{AS}, l1v1[112], l2v1[212], l2v3[223]),
+V3(state{AI}, l1v1[113], l2v1[213], l2v2[223])
