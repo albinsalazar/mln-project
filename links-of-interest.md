@@ -15,7 +15,7 @@
 [Kappa](https://kappalanguage.org/):
 - [reference manual](http://dev.executableknowledge.org/docs/KaSim-manual-master/KaSim_manual.htm)
 - [web interface](https://tools.kappalanguage.org/try/?model=https%3A//raw.githubusercontent.com/Kappa-Dev/KappaTools/master/examples/abc-pert.ka)
-- [repository](https://github.com/Kappa-Dev/KappaTools).
+- [repository](https://github.com/Kappa-Dev/KappaTools)
 
 ### Python GUI Frameworks
 - [Kivy](https://kivy.org/#home)
