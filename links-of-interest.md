@@ -17,6 +17,9 @@
 - [web interface](https://tools.kappalanguage.org/try/?model=https%3A//raw.githubusercontent.com/Kappa-Dev/KappaTools/master/examples/abc-pert.ka)
 - [repository](https://github.com/Kappa-Dev/KappaTools)
 
+### Language Engineering
+[Xtext](https://www.eclipse.org/Xtext/)
+
 ### Python GUI Frameworks
 - [Kivy](https://kivy.org/#home)
 - [Tkinter](https://realpython.com/python-gui-tkinter/)
