@@ -155,7 +155,7 @@ def compile_click(MLNinFname, STEinFname):
     mln_data = parser.parse_mln(MLNinFname)
     
     # parse the .ste language file and generate a Gillespy2 file out.py
-    parser.parse_language(STEinFname, OUTFname, mln_data)
+    parser.parse_language_to_gillespy(STEinFname, OUTFname, mln_data)
     lbl_execute.config(text='Generated out.py!')
 #     lbl_execute["text"] = "Generated out.py!"
     

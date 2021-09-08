@@ -42,7 +42,7 @@ def parse_mln(mln_filename):
     return mln_data
 
 
-def parse_language(STEinFname, OUTFname, mln_data):
+def parse_language_to_gillespy(STEinFname, OUTFname, mln_data):
     actors, N_actors = mln_data['actors']
     layers, N_layers = mln_data['layers']
     edges, list_split_edges = mln_data['edges']
@@ -305,3 +305,7 @@ def parse_language(STEinFname, OUTFname, mln_data):
         out_f.write(f'{tab}plt.annotate(text=f"n = {str(n_rep)}", xy=(0.1, 0.9), xycoords="axes fraction")\n')
 
         out_f.write(f"{tab}plt.show()")
+
+
+def parse_language_to_kappa(STEinFname, OUTFname, mln_data):
+    pass
