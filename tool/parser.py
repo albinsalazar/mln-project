@@ -94,20 +94,17 @@ def parse_to_kappa(network_filename, language_filename, out_filename):
 def parse_signatures(mln_data, language):
     signatures = ['/* Signatures */']
     
-    states = []
-    for state in language['states']:
-        states.append(state)
-    states = '{' + ', '.join(states) + '}'
+    states = '{' + ', '.join(language['states']) + '}'
 
-    for i, actor in enumerate(mln_data['actors'][0]):
+    for actor in mln_data['actors'][0]:
         sites = []
         for j, layer in enumerate(mln_data['edges'][1]):
             for edge in layer:
-                if edge[0] == str(i+1):
+                if edge[0] == actor:
                     sites.append(f'l{j+1}v{edge[1]}')
         sites = ', '.join(sites)
                                  
-        kappa_signature = f'%agent: V{i+1}(state{states}, {sites})'
+        kappa_signature = f'%agent: V{actor}(state{states}, {sites})'
         signatures.append(kappa_signature)
         
         
