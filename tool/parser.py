@@ -80,18 +80,19 @@ def parse_to_kappa(network_filename, language_filename, out_filename):
     language = parse_language_file(language_filename)
     
     kappa_model = ''
-    kappa_model += parse_signatures(mln_data, language) + '\n\n'
-    kappa_model += parse_rules(mln_data, language) + '\n'
-    kappa_model += parse_variables(language) + '\n\n'
-    kappa_model += parse_observables(mln_data, language) + '\n\n'
-    kappa_model += parse_initial_conditions(mln_data, language)
+    kappa_model += kappa_parse_signatures(mln_data, language) + '\n\n'
+    kappa_model += kappa_parse_rules(mln_data, language) + '\n'
+    kappa_model += kappa_parse_variables(language) + '\n\n'
+    kappa_model += kappa_parse_observables(mln_data, language) + '\n\n'
+    kappa_model += kappa_parse_initial_conditions(mln_data, language)
     
     with open(out_filename, 'w') as f:
         f.write(kappa_model)
 
     print(f'Successfully exported model into Kappa: {out_filename}')
     
-def parse_signatures(mln_data, language):
+
+def kappa_parse_signatures(mln_data, language):
     signatures = ['/* Signatures */']
     
     states = '{' + ', '.join(language['states']) + '}'
@@ -113,7 +114,7 @@ def parse_signatures(mln_data, language):
     return signatures
 
 
-def parse_variables(language):
+def kappa_parse_variables(language):
     variables = ['/* Variables */']
     
     for param in language['parameters']:
@@ -125,7 +126,7 @@ def parse_variables(language):
     return variables
 
 
-def parse_observables(mln_data, language):
+def kappa_parse_observables(mln_data, language):
     observables = ['/* Observables */']
     
     for view in language['views']:
@@ -140,7 +141,7 @@ def parse_observables(mln_data, language):
     return observables
 
 
-def parse_initial_conditions(mln_data, language):
+def kappa_parse_initial_conditions(mln_data, language):
     n = ''
     for line in language['simOptions']:
         option, value = line.split('=')
@@ -189,7 +190,7 @@ def parse_initial_conditions(mln_data, language):
     return i_c
 
 
-def parse_rules(mln_data, language):
+def kappa_parse_rules(mln_data, language):
     kappa_rules = ['/* Rules */']
     
     rules = [x.split('@') for x in language['rules']]
@@ -228,9 +229,6 @@ def parse_rules(mln_data, language):
     kappa_rules = '\n'.join(kappa_rules)
 
     return kappa_rules
-
-
-
 
 
 def parse_language_to_gillespy(STEinFname, OUTFname, mln_data):
@@ -498,5 +496,10 @@ def parse_language_to_gillespy(STEinFname, OUTFname, mln_data):
         out_f.write(f"{tab}plt.show()")
 
 
-def parse_language_to_kappa(STEinFname, OUTFname, mln_data):
-    pass
+
+
+
+
+
+
+
