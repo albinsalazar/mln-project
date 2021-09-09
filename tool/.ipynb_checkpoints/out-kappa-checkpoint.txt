@@ -1,0 +1,82 @@
+/* Signatures */
+%agent: V1(state{AS, AI, US}, l1v2, l1v3, l2v2, l2v3)
+%agent: V2(state{AS, AI, US}, l1v1, l2v1, l2v3)
+%agent: V3(state{AS, AI, US}, l1v1, l2v1, l2v2)
+
+/* Rules */
+'AS to US'
+V1(state{AS}) -> V1(state{US}) @ 'delta'
+V2(state{AS}) -> V2(state{US}) @ 'delta'
+V3(state{AS}) -> V3(state{US}) @ 'delta'
+
+'AI to AS'
+V1(state{AI}) -> V1(state{AS}) @ 'mu'
+V2(state{AI}) -> V2(state{AS}) @ 'mu'
+V3(state{AI}) -> V3(state{AS}) @ 'mu'
+
+'1: AS-AI to AI-AI'
+// V1 - V2
+V1(state{AS}, l1v2[112]), V2(state{AI}, l1v1[112]) -> V1(state{AI}, l1v2[112]), V2(state{AI}, l1v1[112]) @ 'betaA'
+// V2 - V1
+V2(state{AS}, l1v1[121]), V1(state{AI}, l1v2[121]) -> V2(state{AI}, l1v1[121]), V1(state{AI}, l1v2[121]) @ 'betaA'
+// V1 - V3
+V1(state{AS}, l1v3[113]), V3(state{AI}, l1v1[113]) -> V1(state{AI}, l1v3[113]), V3(state{AI}, l1v1[113]) @ 'betaA'
+// V3 - V1
+V3(state{AS}, l1v1[131]), V1(state{AI}, l1v3[131]) -> V3(state{AI}, l1v1[131]), V1(state{AI}, l1v3[131]) @ 'betaA'
+
+'1: US-AI to AI-AI'
+// V1 - V2
+V1(state{US}, l1v2[112]), V2(state{AI}, l1v1[112]) -> V1(state{AI}, l1v2[112]), V2(state{AI}, l1v1[112]) @ 'betaU'
+// V2 - V1
+V2(state{US}, l1v1[121]), V1(state{AI}, l1v2[121]) -> V2(state{AI}, l1v1[121]), V1(state{AI}, l1v2[121]) @ 'betaU'
+// V1 - V3
+V1(state{US}, l1v3[113]), V3(state{AI}, l1v1[113]) -> V1(state{AI}, l1v3[113]), V3(state{AI}, l1v1[113]) @ 'betaU'
+// V3 - V1
+V3(state{US}, l1v1[131]), V1(state{AI}, l1v3[131]) -> V3(state{AI}, l1v1[131]), V1(state{AI}, l1v3[131]) @ 'betaU'
+
+'2: US-AI to AS-AI'
+// V1 - V2
+V1(state{US}, l2v2[212]), V2(state{AI}, l2v1[212]) -> V1(state{AS}, l2v2[212]), V2(state{AI}, l2v1[212]) @ 'lamb'
+// V2 - V1
+V2(state{US}, l2v1[221]), V1(state{AI}, l2v2[221]) -> V2(state{AS}, l2v1[221]), V1(state{AI}, l2v2[221]) @ 'lamb'
+// V1 - V3
+V1(state{US}, l2v3[213]), V3(state{AI}, l2v1[213]) -> V1(state{AS}, l2v3[213]), V3(state{AI}, l2v1[213]) @ 'lamb'
+// V3 - V1
+V3(state{US}, l2v1[231]), V1(state{AI}, l2v3[231]) -> V3(state{AS}, l2v1[231]), V1(state{AI}, l2v3[231]) @ 'lamb'
+// V2 - V3
+V2(state{US}, l2v3[223]), V3(state{AI}, l2v2[223]) -> V2(state{AS}, l2v3[223]), V3(state{AI}, l2v2[223]) @ 'lamb'
+// V3 - V2
+V3(state{US}, l2v2[232]), V2(state{AI}, l2v3[232]) -> V3(state{AS}, l2v2[232]), V2(state{AI}, l2v3[232]) @ 'lamb'
+
+'2: US-AS to AS-AS'
+// V1 - V2
+V1(state{US}, l2v2[212]), V2(state{AS}, l2v1[212]) -> V1(state{AS}, l2v2[212]), V2(state{AS}, l2v1[212]) @ 'lamb'
+// V2 - V1
+V2(state{US}, l2v1[221]), V1(state{AS}, l2v2[221]) -> V2(state{AS}, l2v1[221]), V1(state{AS}, l2v2[221]) @ 'lamb'
+// V1 - V3
+V1(state{US}, l2v3[213]), V3(state{AS}, l2v1[213]) -> V1(state{AS}, l2v3[213]), V3(state{AS}, l2v1[213]) @ 'lamb'
+// V3 - V1
+V3(state{US}, l2v1[231]), V1(state{AS}, l2v3[231]) -> V3(state{AS}, l2v1[231]), V1(state{AS}, l2v3[231]) @ 'lamb'
+// V2 - V3
+V2(state{US}, l2v3[223]), V3(state{AS}, l2v2[223]) -> V2(state{AS}, l2v3[223]), V3(state{AS}, l2v2[223]) @ 'lamb'
+// V3 - V2
+V3(state{US}, l2v2[232]), V2(state{AS}, l2v3[232]) -> V3(state{AS}, l2v2[232]), V2(state{AS}, l2v3[232]) @ 'lamb'
+
+/* Variables */
+%var: 'delta' 1
+%var: 'mu' 1
+%var: 'betaA' 1
+%var: 'betaU' 3
+%var: 'lamb' 1
+
+/* Observables */
+%obs: 'AI' |V1(state{AI})| + |V2(state{AI})| + |V3(state{AI})|
+%obs: 'AS' |V1(state{AS})| + |V2(state{AS})| + |V3(state{AS})|
+%obs: 'US' |V1(state{US})| + |V2(state{US})| + |V3(state{US})|
+
+/* Initial conditions */
+%init: 1000 (
+V1(state{AI}, l1v2[112], l1v3[113], l2v2[212], l2v3[213]),
+V2(state{US}, l1v1[112], l2v1[212], l2v3[223]),
+V3(state{US}, l1v1[113], l2v1[213], l2v2[223])
+)

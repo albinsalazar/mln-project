@@ -75,4 +75,8 @@ V3(state{US}, l2v2[232]), V2(state{AS}, l2v3[232]) -> V3(state{AS}, l2v2[232]), 
 %obs: 'US' |V1(state{US})| + |V2(state{US})| + |V3(state{US})|
 
 /* Initial conditions */
-%init: 1000 (V1(state{AI}, l1v2[112], l1v3[113], l2v2[212], l2v3[213]), V2(state{US}, l1v1[112], l2v1[212], l2v3[223]), V3(state{US}, l1v1[113], l2v1[213], l2v2[223]))
+%init: 1000 (
+V1(state{AI}, l1v2[112], l1v3[113], l2v2[212], l2v3[213]),
+V2(state{US}, l1v1[112], l2v1[212], l2v3[223]),
+V3(state{US}, l1v1[113], l2v1[213], l2v2[223])
+)
