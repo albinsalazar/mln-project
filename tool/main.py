@@ -31,7 +31,7 @@ def file_opener():
         global MLNinFname
         MLNinFname = filename
         lbl_MLNinput.config(text=f'Selected network file: {filename}')
-    elif '.ste' in filename:
+    elif ('.mln' or '.ste') in filename:
         global STEinFname
         STEinFname = filename
         lbl_STEinput.config(text=f'Selected language file: {filename}')
@@ -52,6 +52,17 @@ def run_mln():
     from out import run_sim
     model = Mln_dynamics()
     run_sim(model)
+
+
+def export_to_kappa():
+    global MLNinFname
+    global STEinFname
+    out_filename = 'out-kappa.txt'
+
+    parser.parse_to_kappa(MLNinFname, STEinFname, out_filename)
+
+    lbl_kappa_status.config(text=f'Successfully exported to Kappa.')
+
 
 
 #### Building and managing the GUI
@@ -108,6 +119,13 @@ btn_viz.pack(side=tk.LEFT, pady=5, padx=5)
 btn_run = tk.Button(master=frm_MLNviz, text="Simulate!", command = run_mln)
 btn_run.pack(side=tk.RIGHT, pady=5, padx=5)
 
+frm_export_to_kappa = tk.Frame(master=window ,  borderwidth=1)
+frm_export_to_kappa.grid(row=5 , column=0)
+btn_export_to_kappa = tk.Button(master=frm_export_to_kappa, text="Export to Kappa", command = export_to_kappa)
+btn_export_to_kappa.pack()
+lbl_kappa_status = tk.Label(master=frm_export_to_kappa , text="")
+lbl_kappa_status.pack()
+
 ###FOR FIGURES IN THE GUI
 #fig_mln = Figure(figsize=(5,5) , dpi=100)
 #fig_test = fig_mln.add_subplot(111)
@@ -115,7 +133,6 @@ btn_run.pack(side=tk.RIGHT, pady=5, padx=5)
 #canvas = FigureCanvasTkAgg(fig_mln,master=frm_MLNviz)
 #canvas.draw()
 #canvas.get_tk_widget().pack(side=tk.LEFT , fill=tk.BOTH , expand = True )
-
 
 def viz_mln():
     global MLNinFname

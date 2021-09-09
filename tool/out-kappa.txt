@@ -1,18 +1,21 @@
 /* Signatures */
-%agent: V1(state{AS, AI, US}, l1v2, l1v3, l2v2, l2v3)
-%agent: V2(state{AS, AI, US}, l1v1, l2v1, l2v3)
-%agent: V3(state{AS, AI, US}, l1v1, l2v1, l2v2)
+%agent: V1(state{AS, AI, US}, l1v2, l1v3, l1v4, l2v2, l2v3, l2v4)
+%agent: V2(state{AS, AI, US}, l1v1, l1v3, l1v4, l2v1)
+%agent: V3(state{AS, AI, US}, l1v1, l1v2, l1v4, l2v1)
+%agent: V4(state{AS, AI, US}, l1v1, l1v2, l1v3, l2v1)
 
 /* Rules */
 'AS to US'
 V1(state{AS}) -> V1(state{US}) @ 'delta'
 V2(state{AS}) -> V2(state{US}) @ 'delta'
 V3(state{AS}) -> V3(state{US}) @ 'delta'
+V4(state{AS}) -> V4(state{US}) @ 'delta'
 
 'AI to AS'
 V1(state{AI}) -> V1(state{AS}) @ 'mu'
 V2(state{AI}) -> V2(state{AS}) @ 'mu'
 V3(state{AI}) -> V3(state{AS}) @ 'mu'
+V4(state{AI}) -> V4(state{AS}) @ 'mu'
 
 '1: AS-AI to AI-AI'
 // V1 - V2
@@ -23,6 +26,22 @@ V2(state{AS}, l1v1[121]), V1(state{AI}, l1v2[121]) -> V2(state{AI}, l1v1[121]), 
 V1(state{AS}, l1v3[113]), V3(state{AI}, l1v1[113]) -> V1(state{AI}, l1v3[113]), V3(state{AI}, l1v1[113]) @ 'betaA'
 // V3 - V1
 V3(state{AS}, l1v1[131]), V1(state{AI}, l1v3[131]) -> V3(state{AI}, l1v1[131]), V1(state{AI}, l1v3[131]) @ 'betaA'
+// V1 - V4
+V1(state{AS}, l1v4[114]), V4(state{AI}, l1v1[114]) -> V1(state{AI}, l1v4[114]), V4(state{AI}, l1v1[114]) @ 'betaA'
+// V4 - V1
+V4(state{AS}, l1v1[141]), V1(state{AI}, l1v4[141]) -> V4(state{AI}, l1v1[141]), V1(state{AI}, l1v4[141]) @ 'betaA'
+// V2 - V3
+V2(state{AS}, l1v3[123]), V3(state{AI}, l1v2[123]) -> V2(state{AI}, l1v3[123]), V3(state{AI}, l1v2[123]) @ 'betaA'
+// V3 - V2
+V3(state{AS}, l1v2[132]), V2(state{AI}, l1v3[132]) -> V3(state{AI}, l1v2[132]), V2(state{AI}, l1v3[132]) @ 'betaA'
+// V2 - V4
+V2(state{AS}, l1v4[124]), V4(state{AI}, l1v2[124]) -> V2(state{AI}, l1v4[124]), V4(state{AI}, l1v2[124]) @ 'betaA'
+// V4 - V2
+V4(state{AS}, l1v2[142]), V2(state{AI}, l1v4[142]) -> V4(state{AI}, l1v2[142]), V2(state{AI}, l1v4[142]) @ 'betaA'
+// V3 - V4
+V3(state{AS}, l1v4[134]), V4(state{AI}, l1v3[134]) -> V3(state{AI}, l1v4[134]), V4(state{AI}, l1v3[134]) @ 'betaA'
+// V4 - V3
+V4(state{AS}, l1v3[143]), V3(state{AI}, l1v4[143]) -> V4(state{AI}, l1v3[143]), V3(state{AI}, l1v4[143]) @ 'betaA'
 
 '1: US-AI to AI-AI'
 // V1 - V2
@@ -33,6 +52,22 @@ V2(state{US}, l1v1[121]), V1(state{AI}, l1v2[121]) -> V2(state{AI}, l1v1[121]), 
 V1(state{US}, l1v3[113]), V3(state{AI}, l1v1[113]) -> V1(state{AI}, l1v3[113]), V3(state{AI}, l1v1[113]) @ 'betaU'
 // V3 - V1
 V3(state{US}, l1v1[131]), V1(state{AI}, l1v3[131]) -> V3(state{AI}, l1v1[131]), V1(state{AI}, l1v3[131]) @ 'betaU'
+// V1 - V4
+V1(state{US}, l1v4[114]), V4(state{AI}, l1v1[114]) -> V1(state{AI}, l1v4[114]), V4(state{AI}, l1v1[114]) @ 'betaU'
+// V4 - V1
+V4(state{US}, l1v1[141]), V1(state{AI}, l1v4[141]) -> V4(state{AI}, l1v1[141]), V1(state{AI}, l1v4[141]) @ 'betaU'
+// V2 - V3
+V2(state{US}, l1v3[123]), V3(state{AI}, l1v2[123]) -> V2(state{AI}, l1v3[123]), V3(state{AI}, l1v2[123]) @ 'betaU'
+// V3 - V2
+V3(state{US}, l1v2[132]), V2(state{AI}, l1v3[132]) -> V3(state{AI}, l1v2[132]), V2(state{AI}, l1v3[132]) @ 'betaU'
+// V2 - V4
+V2(state{US}, l1v4[124]), V4(state{AI}, l1v2[124]) -> V2(state{AI}, l1v4[124]), V4(state{AI}, l1v2[124]) @ 'betaU'
+// V4 - V2
+V4(state{US}, l1v2[142]), V2(state{AI}, l1v4[142]) -> V4(state{AI}, l1v2[142]), V2(state{AI}, l1v4[142]) @ 'betaU'
+// V3 - V4
+V3(state{US}, l1v4[134]), V4(state{AI}, l1v3[134]) -> V3(state{AI}, l1v4[134]), V4(state{AI}, l1v3[134]) @ 'betaU'
+// V4 - V3
+V4(state{US}, l1v3[143]), V3(state{AI}, l1v4[143]) -> V4(state{AI}, l1v3[143]), V3(state{AI}, l1v4[143]) @ 'betaU'
 
 '2: US-AI to AS-AI'
 // V1 - V2
@@ -43,10 +78,10 @@ V2(state{US}, l2v1[221]), V1(state{AI}, l2v2[221]) -> V2(state{AS}, l2v1[221]), 
 V1(state{US}, l2v3[213]), V3(state{AI}, l2v1[213]) -> V1(state{AS}, l2v3[213]), V3(state{AI}, l2v1[213]) @ 'lamb'
 // V3 - V1
 V3(state{US}, l2v1[231]), V1(state{AI}, l2v3[231]) -> V3(state{AS}, l2v1[231]), V1(state{AI}, l2v3[231]) @ 'lamb'
-// V2 - V3
-V2(state{US}, l2v3[223]), V3(state{AI}, l2v2[223]) -> V2(state{AS}, l2v3[223]), V3(state{AI}, l2v2[223]) @ 'lamb'
-// V3 - V2
-V3(state{US}, l2v2[232]), V2(state{AI}, l2v3[232]) -> V3(state{AS}, l2v2[232]), V2(state{AI}, l2v3[232]) @ 'lamb'
+// V1 - V4
+V1(state{US}, l2v4[214]), V4(state{AI}, l2v1[214]) -> V1(state{AS}, l2v4[214]), V4(state{AI}, l2v1[214]) @ 'lamb'
+// V4 - V1
+V4(state{US}, l2v1[241]), V1(state{AI}, l2v4[241]) -> V4(state{AS}, l2v1[241]), V1(state{AI}, l2v4[241]) @ 'lamb'
 
 '2: US-AS to AS-AS'
 // V1 - V2
@@ -57,10 +92,10 @@ V2(state{US}, l2v1[221]), V1(state{AS}, l2v2[221]) -> V2(state{AS}, l2v1[221]), 
 V1(state{US}, l2v3[213]), V3(state{AS}, l2v1[213]) -> V1(state{AS}, l2v3[213]), V3(state{AS}, l2v1[213]) @ 'lamb'
 // V3 - V1
 V3(state{US}, l2v1[231]), V1(state{AS}, l2v3[231]) -> V3(state{AS}, l2v1[231]), V1(state{AS}, l2v3[231]) @ 'lamb'
-// V2 - V3
-V2(state{US}, l2v3[223]), V3(state{AS}, l2v2[223]) -> V2(state{AS}, l2v3[223]), V3(state{AS}, l2v2[223]) @ 'lamb'
-// V3 - V2
-V3(state{US}, l2v2[232]), V2(state{AS}, l2v3[232]) -> V3(state{AS}, l2v2[232]), V2(state{AS}, l2v3[232]) @ 'lamb'
+// V1 - V4
+V1(state{US}, l2v4[214]), V4(state{AS}, l2v1[214]) -> V1(state{AS}, l2v4[214]), V4(state{AS}, l2v1[214]) @ 'lamb'
+// V4 - V1
+V4(state{US}, l2v1[241]), V1(state{AS}, l2v4[241]) -> V4(state{AS}, l2v1[241]), V1(state{AS}, l2v4[241]) @ 'lamb'
 
 /* Variables */
 %var: 'delta' 1
@@ -70,13 +105,14 @@ V3(state{US}, l2v2[232]), V2(state{AS}, l2v3[232]) -> V3(state{AS}, l2v2[232]), 
 %var: 'lamb' 1
 
 /* Observables */
-%obs: 'AI' |V1(state{AI})| + |V2(state{AI})| + |V3(state{AI})|
-%obs: 'AS' |V1(state{AS})| + |V2(state{AS})| + |V3(state{AS})|
-%obs: 'US' |V1(state{US})| + |V2(state{US})| + |V3(state{US})|
+%obs: 'AI' |V1(state{AI})| + |V2(state{AI})| + |V3(state{AI})| + |V4(state{AI})|
+%obs: 'AS' |V1(state{AS})| + |V2(state{AS})| + |V3(state{AS})| + |V4(state{AS})|
+%obs: 'US' |V1(state{US})| + |V2(state{US})| + |V3(state{US})| + |V4(state{US})|
 
 /* Initial conditions */
 %init: 1000 (
-V1(state{AI}, l1v2[112], l1v3[113], l2v2[212], l2v3[213]),
-V2(state{US}, l1v1[112], l2v1[212], l2v3[223]),
-V3(state{US}, l1v1[113], l2v1[213], l2v2[223])
+V1(state{AI}, l1v2[112], l1v3[113], l1v4[114], l2v2[212], l2v3[213], l2v4[214]),
+V2(state{US}, l1v1[112], l1v3[123], l1v4[124], l2v1[212]),
+V3(state{US}, l1v1[113], l1v2[123], l1v4[134], l2v1[213]),
+V4(state{US}, l1v1[114], l1v2[124], l1v3[134], l2v1[214])
 )
