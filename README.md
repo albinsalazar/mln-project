@@ -1,4 +1,4 @@
-# Modelling Multi-layer networks
+# Modelling Multi-layer Networks
 
 Development of a formal language for modelling multi-layer networks and a cross-platform application with embedded use-cases demonstrating the capabilities of the language.
 
