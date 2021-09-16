@@ -17,6 +17,7 @@ import parser
 
 MLNinFname = ""
 STEinFname = ""
+# OUTFname = "out.py" 
 OUTFname = "out_new.py" 
 
 
@@ -46,6 +47,7 @@ def viz_mln():
     
 
 def run_mln():
+#     OUTFname = "out.py"
     OUTFname = "out_new.py"
     #### THIS WAY it's not right, once we change the stuff he still keeps the old stuff so when doing import again it keeps executing using the old object
     from out_new import Mln_dynamics
@@ -166,14 +168,14 @@ def run_mln():
 
 # def compile_click(event):
 def compile_click(MLNinFname, STEinFname):
-    OUTFname = "out_new.py"
+    OUTFname = "out.py"
     
     # parse the .txt network definition
-    # mln_data = parser.parse_mln(MLNinFname)
+    mln_data = parser.parse_mln(MLNinFname)
     
     # parse the .ste language file and generate a Gillespy2 file out.py
-    parser.parse_to_gillespy(MLNinFname, STEinFname, OUTFname)
-    lbl_execute.config(text='Generated out_new.py!')
+    parser.parse_to_gillespy(STEinFname, OUTFname, mln_data)
+    lbl_execute.config(text='Generated out.py!')
 #     lbl_execute["text"] = "Generated out.py!"
     
     
