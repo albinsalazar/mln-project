@@ -12,9 +12,6 @@ import pathlib
 
 import parser
 
-
-##### imports and general definitions
-
 MLNinFname = ""
 STEinFname = ""
 OUTFname = "out_new.py" 
