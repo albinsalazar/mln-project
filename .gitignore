@@ -6,6 +6,8 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+__pycache__
+.ipynb_checkpoints
 
 # Icon must end with two \r
 Icon
