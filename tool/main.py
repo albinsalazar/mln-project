@@ -14,7 +14,7 @@ import parser
 
 MLNinFname = ""
 STEinFname = ""
-OUTFname = "out_new.py" 
+OUTFname = "out.py" 
 
 
 def df(d):
@@ -99,29 +99,46 @@ separator_lang.pack(fill=tk.X)
 # ent_OUToptions = tk.Entry(master=frm_OUToptions)
 # ent_OUToptions.pack()
 
-btn_execute = tk.Button(master = frm_execute, text="Compile", command=lambda: compile_click(MLNinFname, STEinFname))
-btn_execute.pack()
-lbl_execute = tk.Label(master = frm_execute, text="")
-lbl_execute.pack()
-separator_compile = ttk.Separator(frm_execute, orient='horizontal')
-separator_compile.pack(fill=tk.X)
+# btn_execute = tk.Button(master = frm_execute, text="Export to Gillespie", command=lambda: compile_click(MLNinFname, STEinFname))
+# btn_execute.pack()
+# lbl_execute = tk.Label(master = frm_execute, text="")
+# lbl_execute.pack()
+# separator_compile = ttk.Separator(frm_execute, orient='horizontal')
+# separator_compile.pack(fill=tk.X)
     
 frm_MLNviz = tk.Frame(master=window ,  borderwidth=1)
-frm_MLNviz.grid(row=4 , column=0)
+frm_MLNviz.grid(row=3 , column=0)
+
 btn_viz = tk.Button(master=frm_MLNviz, text="Visualise MLN", command = viz_mln)
-btn_viz.pack(side=tk.LEFT, pady=5, padx=5)
+btn_viz.pack()
 
-# frm_MLNrun = tk.Frame(master=window ,  borderwidth=1)
-# frm_MLNrun.grid(row=5 , column=0)
-btn_run = tk.Button(master=frm_MLNviz, text="Simulate!", command = run_mln)
-btn_run.pack(side=tk.RIGHT, pady=5, padx=5)
 
-frm_export_to_kappa = tk.Frame(master=window ,  borderwidth=1)
-frm_export_to_kappa.grid(row=5 , column=0)
-btn_export_to_kappa = tk.Button(master=frm_export_to_kappa, text="Export to Kappa", command = export_to_kappa)
-btn_export_to_kappa.pack()
-lbl_kappa_status = tk.Label(master=frm_export_to_kappa , text="")
-lbl_kappa_status.pack()
+frm_gillespie = tk.Frame(master=window ,  borderwidth=1)
+frm_gillespie.grid(row=5 , column=0)
+frm_gillespie_lbl = tk.Frame(master=window ,  borderwidth=1)
+frm_gillespie_lbl.grid(row=6 , column=0)
+
+btn_execute = tk.Button(master = frm_gillespie, text="Export to Gillespie", command=lambda: compile_click(MLNinFname, STEinFname))
+btn_execute.pack(side=tk.LEFT, pady=5, padx=5)
+lbl_execute = tk.Label(master = frm_gillespie_lbl, text="")
+lbl_execute.pack(side=tk.LEFT, pady=5, padx=5)
+
+btn_gillespie_run = tk.Button(master=frm_gillespie, text="Simulate using Gillespie", command = run_mln)
+btn_gillespie_run.pack(side=tk.RIGHT, pady=5, padx=5)
+
+
+frm_kappa = tk.Frame(master=window ,  borderwidth=1)
+frm_kappa.grid(row=7 , column=0)
+frm_kappa_lbl = tk.Frame(master=window ,  borderwidth=1)
+frm_kappa_lbl.grid(row=8 , column=0)
+
+btn_export_to_kappa = tk.Button(master=frm_kappa, text="Export to Kappa", command = export_to_kappa)
+btn_export_to_kappa.pack(side=tk.LEFT, pady=5, padx=5)
+lbl_kappa_status = tk.Label(master=frm_kappa_lbl , text="")
+lbl_kappa_status.pack(side=tk.LEFT, pady=5, padx=5)
+
+btn_kappa_run = tk.Button(master=frm_kappa, text="Simulate using Kappa")
+btn_kappa_run.pack(side=tk.RIGHT, pady=5, padx=5)
 
 ###FOR FIGURES IN THE GUI
 #fig_mln = Figure(figsize=(5,5) , dpi=100)
@@ -170,7 +187,7 @@ def compile_click(MLNinFname, STEinFname):
     
     # parse the .ste language file and generate a Gillespy2 file out.py
     parser.parse_to_gillespy(MLNinFname, STEinFname, OUTFname)
-    lbl_execute.config(text='Generated out_new.py!')
+    lbl_execute.config(text='Successfully exported to Gillespie.')
 #     lbl_execute["text"] = "Generated out.py!"
     
     
