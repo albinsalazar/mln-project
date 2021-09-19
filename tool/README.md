@@ -1,5 +1,7 @@
 # Tool
 
+The **overview** of the tool and the currently implemented features can be found here: [overview.ipynb](overview.ipynb).
+
 See [gillespy-kappa-comparison.md](kappa/gillespy-kappa-comparison.md) for a comparison of Kappa and Gillespy simulation of the toy example.
 
 **v0.2.1** - completely rewrote the Gillespy2 parser, which is now maintainable and uses the simpler **.mln** language compared to **.ste**.
